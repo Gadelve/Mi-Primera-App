@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Final Fantasy IX</string>
+    <string name="texto1">Final Fantasy IX (ファイナルファンタジーIX Fainaru Fantajī nain?) es un videojuego de rol realizado por la empresa japonesa Squaresoft en 2000. Esta es la novena entrega del juego y el último capítulo de la saga realizado para la consola Playstation. En esta ocasión, Squaresoft preparó un capítulo con el que pretendía volver a los orígenes de la saga, mostrándonos un mundo clásico entre lo medieval y lo fantástico. Hironobu Sakaguchi se implicó especialmente en esta entrega y llegó a declarar que este capítulo era tal como le habría gustado que fueran los Final Fantasy antiguos, introduciendo un montón de homenajes y guiños continuos, así como un retorno espiritual al sistema de clases y combate más clásico[cita requerida]. Tal como entonces, Yoshitaka Amano estuvo completamente a cargo del diseño y concepto de personajes, aunque luego los diseños finales de los personajes fueran adaptados por Toshiyuki Itahana.
+        Más de una década después de su lanzamiento, el 31 de diciembre de 2015, Square Enix anunció que llegarían versiones remasterizadas para Windows, Android e iOS en 2016.
+    </string>
+
 </resources>

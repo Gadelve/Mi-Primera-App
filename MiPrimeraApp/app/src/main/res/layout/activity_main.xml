@@ -11,15 +11,15 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:src="@mipmap/titulo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="142dp"
+        android:src="@mipmap/titulo" />
 
     <TextView
         android:textColor="@color/colorTexto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hola Mundo!"
+        android:text="Bienvenidos al mundo de Final Fantasy IX!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -29,16 +29,54 @@
         android:textColor="@color/colorTexto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="App de prueba con temática de Final Fantasy IX"
+        android:text="Aqui encontrarás todo tipo de información relacionada con Final Fantasy IX"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:src="@mipmap/vivi"
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="Información del juego" />
 
+    <pl.droidsonroids.gif.GifTextView
+        android:layout_width="wrap_content"
+        android:layout_height="208dp"
+        android:background="@drawable/freija" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/colorFondo"
+        tools:context=".MainActivity">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buscador"
+            android:onClick="onClick2"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick3"
+            android:text="Teléfono" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClickSalir"
+            android:text="Salir" />
+
+    </LinearLayout>
 
 </LinearLayout>
+

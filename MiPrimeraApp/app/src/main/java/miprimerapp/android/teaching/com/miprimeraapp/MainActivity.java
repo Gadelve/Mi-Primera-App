@@ -1,9 +1,12 @@
 package miprimerapp.android.teaching.com.miprimeraapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,4 +57,29 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d("MainActivity", "onDestroy curso");
     }
+
+
+    public void onClick(View view) {
+        Intent intent = new Intent(this, SecondActivity.class);//intencion de iniciar la activity en la memoria
+        intent.putExtra("VALOR_EXTRA", " Android Rool");
+        startActivity(intent); // inicia
+    }/* al final del "onClick" en activity_main.xml alt+enter para darle a crear el metodo onClick en el MainActivity*/
+
+
+    public void onClick2(View view) {
+        Intent intent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://google.com"));
+        startActivity(intent);
+    }
+
+    public void onClick3(View view) {
+        String phone ="tel:1234";
+        Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse(phone));
+        startActivity(intent);
+    }
+
+    public void onClickSalir(View view) {
+        finish();
+    }
 }
+
