@@ -7,8 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     /* ACTIVITY LIFECYCLE (CICLO DE VIDA DE UNA APP CON SUS RESPECTIVAS ETAPAS
     AÑADIMOS LA PALABRA CURSO PARA PODER BUSCARLO LUEGO EN EL LOGCAT Y PODER VISUALIZAR EN EL LOGCAT LOS PROCESOS QUE VAN SUCEDIENDO EN NUESTRA APLICACIÓN
@@ -19,13 +20,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupActionBar();
         Log.d("MainActivity", "onCreate curso");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-            Log.d("MainActivity", "onStart curso");
+        Log.d("MainActivity", "onStart curso");
     }
 
     @Override
@@ -73,13 +75,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick3(View view) {
-        String phone ="tel:1234";
-        Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse(phone));
+        String phone = "tel:1234";
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(phone));
         startActivity(intent);
     }
 
     public void onClickSalir(View view) {
         finish();
+    }
+
+    public void onClickLOGIN(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);//intencion de iniciar la activity en la memoria
+        intent.putExtra("VALOR_EXTRA", " Android Rool");
+        startActivity(intent); // inicia
+    }
+
+
+    public void onClickLISTA(View view) {
+        Intent intent = new Intent(this, ListActivity.class);//intencion de iniciar la activity en la memoria
+        intent.putExtra("VALOR_EXTRA", " Android Rool");
+        startActivity(intent); // inicia
     }
 }
 

@@ -5,4 +5,7 @@
     <color name="colorAccent">#493f43</color>
     <color name="colorFondo">#212187</color>
     <color name="colorTexto">#dadaea</color>
+    <color name="colorBoton1">#1cdf33</color>
+    <color name="colorBoton2">#df1c22</color>
+    <color name="black">#000000</color>
 </resources>

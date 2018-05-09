@@ -10,6 +10,15 @@
     android:background="@color/colorFondo"
     tools:context=".MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Final Fantasy IX"/>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="142dp"
@@ -73,8 +82,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onClickSalir"
-            android:text="Salir" />
+            android:onClick="onClickLOGIN"
+            android:text="Register" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClickLISTA"
+            android:text="Lista" />
 
     </LinearLayout>
 
