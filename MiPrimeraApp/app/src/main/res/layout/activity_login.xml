@@ -4,12 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Login"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/username"
@@ -49,7 +60,8 @@
             android:layout_height="wrap_content"
             android:text="LOGIN"
             android:layout_below="@id/editpassword"
-            android:id="@+id/LOGINBUTTON"/>
+            android:id="@+id/LOGINBUTTON"
+            android:onClick="onClickLogin"/>
 
         <Button
             android:layout_width="wrap_content"

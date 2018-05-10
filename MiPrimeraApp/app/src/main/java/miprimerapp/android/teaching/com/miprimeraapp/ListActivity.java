@@ -1,9 +1,16 @@
 package miprimerapp.android.teaching.com.miprimeraapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,8 +23,8 @@ import android.widget.Toast;
 
 public class ListActivity extends AppCompatActivity {
 
-    String[] gameNames = { "Final Fantasy VII", "Final Fantasy VIII", "Final Fantasy X"};
-    int[] gameIcons = { R.drawable.iconffvii, R.drawable.iconfviii, R.drawable.iconffx};
+    String[] gameNames = { "Final Fantasy VII", "Final Fantasy VIII", "Final Fantasy IX", "Final Fantasy X"};
+    int[] gameIcons = { R.drawable.iconffvii, R.drawable.iconfviii, R.drawable.iconffix, R.drawable.iconffx};
 
 
     @Override
@@ -31,18 +38,42 @@ public class ListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ListActivity.this, "Seleccionada posición " + position,
-                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ListActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
+
+        Toolbar myToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int identificador = item.getItemId();
+        switch (identificador) {
+            case R.id.loginAction:
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private class MyAdapter extends BaseAdapter {
 
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         @Override

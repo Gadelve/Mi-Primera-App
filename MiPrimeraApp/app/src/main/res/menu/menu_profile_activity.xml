@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/loginAction"
+        android:title="Login"
+        android:icon="@drawable/iconlogin"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/saveAction"
+        android:title="Guardar"
+        android:icon="@drawable/saveicon"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/deleteAction"
+        android:title="Borrar"
+        android:icon="@drawable/binicon"
+        app:showAsAction="always" />
+
+
+
+</menu>

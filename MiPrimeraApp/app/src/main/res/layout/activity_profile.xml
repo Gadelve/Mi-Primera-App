@@ -7,6 +7,15 @@
     android:orientation="vertical"
     tools:context=".ProfileActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Datos"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -102,13 +111,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorBoton1"
-            android:onClick="SAVE"
             android:text="SAVE" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorBoton2"
-            android:text="DELETE" />
+            android:text="DELETE"/>
     </LinearLayout>
 </LinearLayout>
