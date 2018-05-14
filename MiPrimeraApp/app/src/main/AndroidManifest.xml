@@ -31,7 +31,8 @@
         <activity
             android:name=".LoginActivity"
             android:parentActivityName=".ListActivity" />
-        <activity android:name=".FragmentTestActivity"></activity>
+        <activity android:name=".FragmentTestActivity" />
+        <activity android:name=".GameDetailActivity"></activity>
     </application>
 
 </manifest>

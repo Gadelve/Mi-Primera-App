@@ -21,6 +21,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import miprimerapp.android.teaching.com.miprimeraapp.interactors.GamesInteractor;
+
 public class ListActivity extends AppCompatActivity {
 
     String[] gameNames = { "Final Fantasy VII", "Final Fantasy VIII", "Final Fantasy IX", "Final Fantasy X"};
@@ -38,7 +40,9 @@ public class ListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ListActivity.this, LoginActivity.class);
+                Intent intent = new Intent(ListActivity.this, GameDetailActivity.class);
+                int gameId = new GamesInteractor().getGames().get(position).getId();
+                intent.putExtra("game_id",gameId);
                 startActivity(intent);
             }
         });
@@ -53,6 +57,11 @@ public class ListActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main_activity, menu);
         return true;
+    }
+
+    public void onClickDetail(){
+        Intent intent = new Intent(this, GameDetailActivity.class);//intencion de iniciar la activity en la memoria
+        startActivity(intent);
     }
 
     @Override
