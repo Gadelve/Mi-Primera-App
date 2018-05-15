@@ -2,6 +2,10 @@ package miprimerapp.android.teaching.com.miprimeraapp;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +16,7 @@ import android.widget.Toolbar;
 
 import org.w3c.dom.Text;
 
+import miprimerapp.android.teaching.com.miprimeraapp.fragments.GameDetailFragment;
 import miprimerapp.android.teaching.com.miprimeraapp.model.GameModel;
 import miprimerapp.android.teaching.com.miprimeraapp.presenters.GameDetailPresenter;
 import miprimerapp.android.teaching.com.miprimeraapp.view.GameDetailView;
@@ -20,8 +25,9 @@ public class GameDetailActivity extends AppCompatActivity
         implements GameDetailView {
 
     private GameDetailPresenter presenter;
-    private int currentGameId;
+    private int currentPosition;
     private String currentGameWebSite;
+    private MyPageAdapter myPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,49 +41,63 @@ public class GameDetailActivity extends AppCompatActivity
 
         presenter = new GameDetailPresenter();
 
-        currentGameId = getIntent().getIntExtra("game_id", 0);
+        currentPosition = getIntent().getIntExtra("position", 0);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         presenter.startPresenting(this);
-        presenter.loadGameWithID(currentGameId);
+        final ViewPager myViewPager = findViewById(R.id.viewpager);
+        myPageAdapter = new MyPageAdapter(getSupportFragmentManager());
+        myViewPager.setAdapter(myPageAdapter);
+        myViewPager.setCurrentItem(currentPosition);
+        getSupportActionBar().setTitle(myPageAdapter.getPageTitle(currentPosition));
+        myViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+            getSupportActionBar().setTitle(myPageAdapter.getPageTitle(position));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
-    public void onClickOfficial(View view) {
-        Intent intent = new Intent(this, MainActivity.class);//intencion de iniciar la activity en la memoria
-        startActivity(intent);
-    }
 
     @Override
     public void onGameLoaded(GameModel game) {
-        //UPDATE VIEW WITH GAME MODEL DATA
-        ImageView icono = findViewById(R.id.iconFFIX);
-        icono.setImageResource(game.getIconDrawable());
+       }
 
-        // 1. CAMBIAR IMAGEN DE FONDO
+       private class MyPageAdapter extends FragmentStatePagerAdapter{
 
-        ImageView fondo = findViewById(R.id.group);
-        fondo.setImageResource(game.getBackgroundDrawble());
+           public MyPageAdapter(FragmentManager fm) {
+               super(fm);
+           }
 
-        // 2. CAMBIAR DESCRIPCIÓN
+           public CharSequence getPageTitle (int position){
+               return presenter.getGames().get(position).getName();
+           }
 
-        TextView descripcion = findViewById(R.id.detailact);
-        descripcion.setText(game.getDescription());
+           @Override
+           public Fragment getItem(int position) {
+               int gameID = presenter.getGames().get(position).getId();
+               return GameDetailFragment.newInstance(gameID);
+           }
 
-        // 3. CAMBIAR TÍTULO DE LA TOOLBAR
-
-        getSupportActionBar().setTitle(game.getName());
-
-        this.currentGameWebSite = game.getOfficialWebsiteUrl();
-
-    }
-
-    public void goToWebSite(View view) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(currentGameWebSite));
-        startActivity(intent);
+           @Override
+           public int getCount() {
+               return presenter.getGames().size();
+           }
+       }
 
 
-    }
+
 }

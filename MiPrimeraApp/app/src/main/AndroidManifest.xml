@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -32,7 +33,10 @@
             android:name=".LoginActivity"
             android:parentActivityName=".ListActivity" />
         <activity android:name=".FragmentTestActivity" />
-        <activity android:name=".GameDetailActivity"></activity>
+        <activity
+            android:name=".GameDetailActivity"
+            android:parentActivityName=".ListActivity" />
+        <activity android:name=".WebViewActivity"></activity>
     </application>
 
 </manifest>
