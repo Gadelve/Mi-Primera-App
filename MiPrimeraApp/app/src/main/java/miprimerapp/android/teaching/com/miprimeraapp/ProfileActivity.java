@@ -1,7 +1,10 @@
 package miprimerapp.android.teaching.com.miprimeraapp;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -66,6 +69,51 @@ public class ProfileActivity extends AppCompatActivity {
         myActionBar.setDisplayHomeAsUpEnabled(true);
 
         // PARA CAMBIAR LA IMG DE BACK de la toolbar --->  getSupportActionBar().setHomeAsUpIndicator(R.drawable.leftarrow);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences mySharedPreferences = getSharedPreferences(getString(R.string.user_preferences), Context.MODE_PRIVATE);
+        String savedUsername = mySharedPreferences.getString("username_key", "");
+        user.setText(savedUsername);
+        String savedEmail = mySharedPreferences.getString("email_key", "");
+        email.setText(savedEmail);
+        String savedAge = mySharedPreferences.getString("edad_key", "");
+        edad.setText(savedAge);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences mySharedPreferences = getSharedPreferences(getString(R.string.user_preferences), Context.MODE_PRIVATE);
+        String savedUsername = mySharedPreferences.getString("username_key", "");
+        user.setText(savedUsername);
+        String savedEmail = mySharedPreferences.getString("email_key", "");
+        email.setText(savedEmail);
+        String savedAge = mySharedPreferences.getString("edad_key", "");
+        edad.setText(savedAge);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        String username = user.getText().toString();
+        String emailtext = email.getText().toString();
+        String edadtext = edad.getText().toString();
+
+        SharedPreferences mySharedPreferences = getSharedPreferences(getString(R.string.user_preferences), Context.MODE_PRIVATE);
+        SharedPreferences.Editor myEditor = mySharedPreferences.edit();
+        myEditor.putString("username_key", username);
+        myEditor.putString("email_key", emailtext);
+        myEditor.putString("edad_key", edadtext);
+        if (radioButtonMale.isChecked()) {
+            myEditor.putString("gender_key", "H");
+        } else if (radioButtonFemale.isChecked()) {
+            myEditor.putString("gender_key", "M");
+        }
+        myEditor.apply();
     }
 
     @Override
@@ -233,5 +281,16 @@ public class ProfileActivity extends AppCompatActivity {
         dialog.show();
 
     }
+/*
+    // Checks if external storage is available to at least read
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+        {
+            return true;
+        }
+        return false;
 
+}*/
 }
