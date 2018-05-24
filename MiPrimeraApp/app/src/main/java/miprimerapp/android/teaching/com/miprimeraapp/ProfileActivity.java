@@ -1,9 +1,12 @@
 package miprimerapp.android.teaching.com.miprimeraapp;
 
 import android.app.DatePickerDialog;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteConstraintException;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -17,7 +20,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.Toast;
+
+import java.io.File;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -69,7 +76,14 @@ public class ProfileActivity extends AppCompatActivity {
         myActionBar.setDisplayHomeAsUpEnabled(true);
 
         // PARA CAMBIAR LA IMG DE BACK de la toolbar --->  getSupportActionBar().setHomeAsUpIndicator(R.drawable.leftarrow);
+
+        File imgFile = new File(getExternalFilesDir(null), "profile.png");
+        if (imgFile.exists()) {
+            ImageView myImage = findViewById(R.id.profile_image_view);
+            myImage.setImageURI(Uri.fromFile(imgFile));
+        }
     }
+
 
     @Override
     protected void onResume() {
@@ -171,6 +185,29 @@ public class ProfileActivity extends AppCompatActivity {
         } else if (radioButtonFemale.isChecked()) {
             // El usuario ha seleccionado "M"
             Log.d("ProfileActivity", "Gender: female");
+        }
+
+        AppDataBase db = Room.databaseBuilder(getApplicationContext(),
+                AppDataBase.class, "database-name")
+                .allowMainThreadQueries()
+                .build();
+        try {
+            User user = new User();
+
+            user.setUsername(this.user.getText().toString());
+            user.setEmail(email.getText().toString());
+            user.setPassword(password.getText().toString());
+            user.setAge(edad.getText().toString());
+            if (radioButtonMale.isChecked()) {
+                user.setGender(radioButtonMale.getText().toString());
+            } else if (radioButtonFemale.isChecked()) {
+                user.setGender(radioButtonFemale.getText().toString());
+            }
+            db.userDao().insert(user);
+
+        } catch (SQLiteConstraintException ex) {
+            Toast.makeText(this, "Username is already taken", Toast.LENGTH_LONG).show();
+            //Algún error ha ocurrido al insertar
         }
     }
 
@@ -281,16 +318,25 @@ public class ProfileActivity extends AppCompatActivity {
         dialog.show();
 
     }
-/*
+
+    // Checks if external storage is available to at least read
     // Checks if external storage is available to at least read
     public boolean isExternalStorageReadable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state) ||
-                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
-        {
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
             return true;
         }
         return false;
+    }
 
-}*/
+    // Checks if external storage is available for read and write
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -83,7 +83,7 @@ public class GameDetailActivity extends AppCompatActivity
            }
 
            public CharSequence getPageTitle (int position){
-               return presenter.getGames().get(position).getName();
+               return ""; //presenter.getGames().get(position).getName();
            }
 
            @Override

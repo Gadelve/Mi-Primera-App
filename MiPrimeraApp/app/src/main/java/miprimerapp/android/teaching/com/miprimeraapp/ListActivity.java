@@ -21,35 +21,52 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import miprimerapp.android.teaching.com.miprimeraapp.interactors.GamesInteractor;
+import miprimerapp.android.teaching.com.miprimeraapp.interactors.GamesInteractorCallBack;
+import miprimerapp.android.teaching.com.miprimeraapp.interactors.GamesInteractorCopia;
 
 public class ListActivity extends AppCompatActivity {
 
-    String[] gameNames = { "Final Fantasy VII", "Final Fantasy VIII", "Final Fantasy IX", "Final Fantasy X"};
-    int[] gameIcons = { R.drawable.iconffvii, R.drawable.iconfviii, R.drawable.iconffix, R.drawable.iconffx};
-
+    private MyAdapter myAdapter;
+    private GamesInteractorCopia gamesFirebaseInteractor;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        ListView listView = findViewById(R.id.list_view);
-        listView.setAdapter(new MyAdapter());
+        listView = findViewById(R.id.list_view);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ListActivity.this, GameDetailActivity.class);
                 int gameId = new GamesInteractor().getGames().get(position).getId();
-                intent.putExtra("position",position);
+                intent.putExtra("position", position);
                 startActivity(intent);
+            }
+        });
+
+        gamesFirebaseInteractor = new GamesInteractorCopia();
+        gamesFirebaseInteractor.getGames(new GamesInteractorCallBack() {
+
+            public void onGamesAvailable() {
+                findViewById(R.id.loading).setVisibility(View.GONE);
+                // Aquí, GamesFirebaseInteractor ya tiene la lista de juegos
+                myAdapter = new MyAdapter();
+                listView.setAdapter(myAdapter);
             }
         });
 
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
+        //Crea automáticamente la carpeta privada en sdcard
+
+        getExternalFilesDir(null).mkdirs();
     }
 
     @Override
@@ -59,7 +76,7 @@ public class ListActivity extends AppCompatActivity {
         return true;
     }
 
-    public void onClickDetail(){
+    public void onClickDetail() {
         Intent intent = new Intent(this, GameDetailActivity.class);//intencion de iniciar la activity en la memoria
         startActivity(intent);
     }
@@ -82,7 +99,7 @@ public class ListActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 4;
+            return gamesFirebaseInteractor.getGames().size();
         }
 
         @Override
@@ -101,15 +118,15 @@ public class ListActivity extends AppCompatActivity {
             View rowView = inflater.inflate(R.layout.list_item, parent, false);
 
             ImageView icon = rowView.findViewById(R.id.image_view);
-            icon.setImageResource(gameIcons[position]);
+            Glide.with(ListActivity.this).load(gamesFirebaseInteractor.getGames().get(position).getIcon()).into(icon);
+            //incon.setImageResource(gameicons.get(position));
 
             TextView textView = rowView.findViewById(R.id.text_view);
-            textView.setText(gameNames[position]);
+            textView.setText(gamesFirebaseInteractor.getGames().get(position).getName());
 
             return rowView;
         }
     }
-
 
 
 }

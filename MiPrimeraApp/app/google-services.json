@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "425192014839",
+    "firebase_url": "https://miprimeraapp-264a0.firebaseio.com",
+    "project_id": "miprimeraapp-264a0",
+    "storage_bucket": "miprimeraapp-264a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425192014839:android:288e9211c7f6c632",
+        "android_client_info": {
+          "package_name": "miprimerapp.android.teaching.com.miprimeraapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425192014839-lqk63ipqrocqhi6dtupctukssmba1bsq.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "425192014839-lqk63ipqrocqhi6dtupctukssmba1bsq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkggfU5N-2NirARYu7dEqrkB3VcK6z0TU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -80,13 +80,24 @@ public class LoginActivity extends AppCompatActivity {
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        // Check empty values
+        /*if (TextUtils.isEmpty(username)) {
+            // El campo "username" está vacío
+            usernameEditText.setError(getString(R.string.username_error));
+        } else if (TextUtils.isEmpty(password)) {
+            passwordEditText.setError(getString(R.string.password_error));
+        } else {
+            SharedPreferences mySharedPreferences = getSharedPreferences(
+                    getString(R.string.user_preferences),
+                    Context.MODE_PRIVATE
+            );
+            SharedPreferences.Editor myEditor = mySharedPreferences.edit();
+            myEditor.putString("username_key", username);
+            myEditor.apply();
 
-        SharedPreferences mySharedPreferences = getSharedPreferences(getString(R.string.user_preferences), Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor myEditor = mySharedPreferences.edit();
-        myEditor.putString("username_key", username);
-        myEditor.apply();
+*/
+            // Do login
+            Intent profileIntent = new Intent(this, ProfileActivity.class);
+            startActivity(profileIntent);
     }
 }

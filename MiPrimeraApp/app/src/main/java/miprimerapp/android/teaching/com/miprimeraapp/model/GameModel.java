@@ -5,16 +5,20 @@ public class GameModel {
     private String name;
     private String description;
     private String OfficialWebsiteUrl;
-    private int iconDrawable;
-    private int backgroundDrawble;
+    private String icon;
+    private String background;
 
-    public GameModel(int id, String name, String description, String officialWebsiteUrl, int iconDrawable, int backgroundDrawble) {
+    public GameModel(){
+
+    }
+
+    public GameModel(int id, String name, String description, String officialWebsiteUrl, String icon, String background) {
         this.id = id;
         this.name = name;
         this.description = description;
         OfficialWebsiteUrl = officialWebsiteUrl;
-        this.iconDrawable = iconDrawable;
-        this.backgroundDrawble = backgroundDrawble;
+        this.icon = icon;
+        this.background = background;
     }
 
     public int getId() {
@@ -33,12 +37,12 @@ public class GameModel {
         return OfficialWebsiteUrl;
     }
 
-    public int getIconDrawable() {
-        return iconDrawable;
+    public String getIcon() {
+        return icon;
     }
 
-    public int getBackgroundDrawble() {
-        return backgroundDrawble;
+    public String getBackground() {
+        return background;
     }
 
     public void setId(int id) {
@@ -57,11 +61,11 @@ public class GameModel {
         OfficialWebsiteUrl = officialWebsiteUrl;
     }
 
-    public void setIconDrawable(int iconDrawable) {
-        this.iconDrawable = iconDrawable;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
-    public void setBackgroundDrawble(int backgroundDrawble) {
-        this.backgroundDrawble = backgroundDrawble;
+    public void setBackground(String background) {
+        this.background = background;
     }
 }

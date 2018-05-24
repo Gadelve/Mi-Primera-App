@@ -12,9 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import miprimerapp.android.teaching.com.miprimeraapp.R;
 import miprimerapp.android.teaching.com.miprimeraapp.WebViewActivity;
 import miprimerapp.android.teaching.com.miprimeraapp.interactors.GamesInteractor;
+import miprimerapp.android.teaching.com.miprimeraapp.interactors.GamesInteractorCallBack;
+import miprimerapp.android.teaching.com.miprimeraapp.interactors.GamesInteractorCopia;
 import miprimerapp.android.teaching.com.miprimeraapp.model.GameModel;
 
 /**
@@ -22,6 +26,7 @@ import miprimerapp.android.teaching.com.miprimeraapp.model.GameModel;
  */
 public class GameDetailFragment extends Fragment {
 
+    private GamesInteractorCopia gamesFirebaseInteractor;
 
     public GameDetailFragment() {
         // Required empty public constructor
@@ -36,10 +41,10 @@ public class GameDetailFragment extends Fragment {
         return fragment;
     }
 
-    public void webbutton(){
+    public void webbutton() {
 
         String url = "www.google.es";
-        Intent intent = new Intent ();
+        Intent intent = new Intent();
         intent.putExtra("url", url);
 
     }
@@ -51,32 +56,39 @@ public class GameDetailFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_game_detail, container, false);
 
         // Obtener GameModel del GamesInteractor
-        int gameID = getArguments().getInt("game_id", 0);
-        final GameModel game = new GamesInteractor().getGameWithID(gameID);
+        final int gameID = getArguments().getInt("game_id", 0);
+        gamesFirebaseInteractor = new GamesInteractorCopia();
+        gamesFirebaseInteractor.getGames(new GamesInteractorCallBack() {
+            public void onGamesAvailable() {
+                final GameModel game = gamesFirebaseInteractor.getGameWithID(gameID);
 
-        //UPDATE VIEW WITH GAME MODEL DATA
-        ImageView icono = fragmentView.findViewById(R.id.iconFFIX);
-        icono.setImageResource(game.getIconDrawable());
+                //UPDATE VIEW WITH GAME MODEL DATA
+                ImageView icono = getView().findViewById(R.id.iconFFIX);
+                Glide.with(getView()).load(game.getIcon()).into(icono);
+                //icono.setImageResource(game.getIconDrawable());
 
-        // 1. CAMBIAR IMAGEN DE FONDO
+                // 1. CAMBIAR IMAGEN DE FONDO
 
-        ImageView fondo = fragmentView.findViewById(R.id.group);
-        fondo.setImageResource(game.getBackgroundDrawble());
+                ImageView fondo = getView().findViewById(R.id.group);
+                Glide.with(getView()).load(game.getBackground()).into(fondo);
+                //fondo.setImageResource(game.getBackgroundDrawble());
 
-        // 2. CAMBIAR DESCRIPCIÓN
+                // 2. CAMBIAR DESCRIPCIÓN
 
-        TextView descripcion = fragmentView.findViewById(R.id.detailact);
-        descripcion.setText(game.getDescription());
+                TextView descripcion = getView().findViewById(R.id.detailact);
+                descripcion.setText(game.getDescription());
 
-        // 3. DEFINIR ACCIÓN PARA EL BOTON
+                // 3. DEFINIR ACCIÓN PARA EL BOTON
 
-        Button boton = fragmentView.findViewById(R.id.website_button);
+                Button boton = getView().findViewById(R.id.website_button);
                 boton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+                    public void onClick(View v) {
 
-                Intent webIntent = new Intent(getContext(), WebViewActivity.class);
-                webIntent.putExtra("url", game.getOfficialWebsiteUrl());
-                startActivity(webIntent);
+                        Intent webIntent = new Intent(getContext(), WebViewActivity.class);
+                        webIntent.putExtra("url", game.getOfficialWebsiteUrl());
+                        startActivity(webIntent);
+                    }
+                });
             }
 
         });
