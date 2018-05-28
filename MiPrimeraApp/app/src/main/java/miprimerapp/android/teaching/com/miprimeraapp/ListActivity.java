@@ -22,6 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import miprimerapp.android.teaching.com.miprimeraapp.interactors.GamesInteractor;
 import miprimerapp.android.teaching.com.miprimeraapp.interactors.GamesInteractorCallBack;
@@ -35,6 +39,12 @@ public class ListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        String token = FirebaseInstanceId.getInstance().getToken(); //Obtienes el token del dispositivo
+        FirebaseDatabase database = FirebaseDatabase.getInstance(); // Llamas a Firebase
+        DatabaseReference myRef = database.getReference("device_push_token"); // Haces referenia al nodo, como en este caso no habia ninguno que se llamara asi se creará un nodo con el nombre dado
+        myRef.setValue(token); // Escribes en el nodo el token de tu movil en un campo-
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
